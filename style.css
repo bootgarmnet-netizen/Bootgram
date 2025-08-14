@@ -1,15 +1,15 @@
- /* ======================================================== */
+/* ======================================================== */
 /* =================== GLOBAL RESET ====================== */
 /* ======================================================== */
 :root {
-    /* الألوان الأساسية */
-    --main-bg-dark: #282626;
-    --second-bg-dark: #0f111a;
-    --text-light: #dcdcdc;
-    --glow-light-blue: #00BFFF;
-    --glow-light-gray: #C0C0C0;
-    --button-gradient-start: #1E90FF;
-    --button-gradient-end: #00BFFF;
+    /* الألوان الأساسية الجديدة */
+    --main-bg-dark: #1f1422;
+    --second-bg-dark: #0a050e;
+    --text-light: #f5f5f5;
+    --glow-light-purple: #8A2BE2;
+    --glow-light-pink: #FF69B4;
+    --button-gradient-start: #8A2BE2;
+    --button-gradient-end: #FF69B4;
 }
 
 * {
@@ -23,6 +23,7 @@ html, body {
     width: 100%;
     height: 100%;
     font-family: 'Tajawal', sans-serif;
+    /* الخلفية الثابتة الجديدة */
     background: radial-gradient(circle at top left, var(--main-bg-dark), var(--main-bg-dark) 60%, var(--second-bg-dark) 100%);
     display: flex;
     justify-content: center;
@@ -59,7 +60,7 @@ html, body {
     top: -3px; left: -3px;
     width: calc(100% + 6px);
     height: calc(100% + 6px);
-    background: linear-gradient(135deg, rgba(0,191,255,0.15), rgba(192,192,192,0.1));
+    background: linear-gradient(135deg, rgba(138, 43, 226, 0.15), rgba(255, 105, 180, 0.1));
     border-radius: 20px;
     pointer-events: none;
     filter: blur(12px);
@@ -72,16 +73,16 @@ h1, h2 {
     margin-bottom: 25px;
     font-weight: 800;
     font-size: 34px;
-    background: linear-gradient(90deg, var(--glow-light-blue), var(--glow-light-gray));
+    background: linear-gradient(90deg, var(--glow-light-purple), var(--glow-light-pink));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     letter-spacing: 1px;
-    text-shadow: 0 0 8px #00BFFF44, 0 0 15px #C0C0C044;
+    text-shadow: 0 0 8px #8A2BE244, 0 0 15px #FF69B444;
 }
 
 .username {
-    color: var(--glow-light-blue);
-    text-shadow: 0 0 8px #00BFFF66, 0 0 15px #C0C0C044;
+    color: var(--glow-light-purple);
+    text-shadow: 0 0 8px #8A2BE266, 0 0 15px #FF69B444;
     font-weight: 700;
 }
 
@@ -115,16 +116,16 @@ button {
 
 button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 0 15px #00BFFF55, 0 0 25px #C0C0C055, 6px 6px 20px rgba(0,0,0,0.7), -6px -6px 20px rgba(255,255,255,0.1);
+    box-shadow: 0 0 15px #8A2BE255, 0 0 25px #FF69B455, 6px 6px 20px rgba(0,0,0,0.7), -6px -6px 20px rgba(255,255,255,0.1);
 }
 
 button.neon {
-    box-shadow: 0 0 8px #00BFFF44, 0 0 18px #C0C0C022, 6px 6px 20px rgba(0,0,0,0.7), -6px -6px 20px rgba(255,255,255,0.1);
+    box-shadow: 0 0 8px #8A2BE244, 0 0 18px #FF69B422, 6px 6px 20px rgba(0,0,0,0.7), -6px -6px 20px rgba(255,255,255,0.1);
 }
 
 button.neon:hover {
     transform: translateY(-3px) scale(1.02);
-    box-shadow: 0 0 15px #00BFFF55, 0 0 28px #C0C0C033, 6px 6px 20px rgba(0,0,0,0.7), -6px -6px 20px rgba(255,255,255,0.1);
+    box-shadow: 0 0 15px #8A2BE255, 0 0 28px #FF69B433, 6px 6px 20px rgba(0,0,0,0.7), -6px -6px 20px rgba(255,255,255,0.1);
 }
 
 /* ======================================================== */
@@ -166,7 +167,7 @@ input[type="checkbox"] {
 /* ======================================================== */
 .spinner {
     border: 6px solid rgba(255,255,255,0.2);
-    border-top: 6px solid var(--glow-light-blue);
+    border-top: 6px solid var(--glow-light-purple);
     border-radius: 50%;
     width: 60px;
     height: 60px;
@@ -190,7 +191,7 @@ input[type="checkbox"] {
     border-radius: 20px;
     color: #fff;
     font-weight: 700;
-    background: linear-gradient(90deg, var(--glow-light-blue), var(--glow-light-gray));
+    background: linear-gradient(90deg, var(--glow-light-purple), var(--glow-light-pink));
     transition: width 0.3s ease;
 }
 
@@ -208,8 +209,8 @@ input[type="checkbox"] {
 }
 
 @keyframes glow {
-    0% { box-shadow: 0 0 5px var(--glow-light-blue); }
-    100% { box-shadow: 0 0 20px var(--glow-light-blue), 0 0 30px var(--glow-light-gray); }
+    0% { box-shadow: 0 0 5px var(--glow-light-purple); }
+    100% { box-shadow: 0 0 20px var(--glow-light-purple), 0 0 30px var(--glow-light-pink); }
 }
 
 /* ======================================================== */
