@@ -1,0 +1,236 @@
+ /* ======================================================== */
+/* =================== GLOBAL RESET ====================== */
+/* ======================================================== */
+:root {
+    /* الألوان الأساسية */
+    --main-bg-dark: #282626;
+    --second-bg-dark: #0f111a;
+    --text-light: #dcdcdc;
+    --glow-light-blue: #00BFFF;
+    --glow-light-gray: #C0C0C0;
+    --button-gradient-start: #1E90FF;
+    --button-gradient-end: #00BFFF;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: all 0.3s ease;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    font-family: 'Tajawal', sans-serif;
+    background: radial-gradient(circle at top left, var(--main-bg-dark), var(--main-bg-dark) 60%, var(--second-bg-dark) 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-x: hidden;
+    color: var(--text-light);
+}
+
+/* ======================================================== */
+/* =================== GLASS CONTAINERS ================== */
+/* ======================================================== */
+.glass-container {
+    position: relative;
+    width: 90%;
+    max-width: 450px;
+    padding: 40px;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.04);
+    box-shadow:
+        0 8px 50px rgba(0,0,0,0.8),
+        inset 0 0 35px rgba(255,255,255,0.08);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    text-align: center;
+    animation: fadeIn 1s ease forwards;
+    opacity: 0;
+    transition: all 0.4s ease;
+}
+
+.glass-container::after {
+    content: "";
+    position: absolute;
+    top: -3px; left: -3px;
+    width: calc(100% + 6px);
+    height: calc(100% + 6px);
+    background: linear-gradient(135deg, rgba(0,191,255,0.15), rgba(192,192,192,0.1));
+    border-radius: 20px;
+    pointer-events: none;
+    filter: blur(12px);
+}
+
+/* ======================================================== */
+/* =================== HEADINGS ========================== */
+/* ======================================================== */
+h1, h2 {
+    margin-bottom: 25px;
+    font-weight: 800;
+    font-size: 34px;
+    background: linear-gradient(90deg, var(--glow-light-blue), var(--glow-light-gray));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    letter-spacing: 1px;
+    text-shadow: 0 0 8px #00BFFF44, 0 0 15px #C0C0C044;
+}
+
+.username {
+    color: var(--glow-light-blue);
+    text-shadow: 0 0 8px #00BFFF66, 0 0 15px #C0C0C044;
+    font-weight: 700;
+}
+
+/* ======================================================== */
+/* =================== PARAGRAPHS & LISTS ================ */
+/* ======================================================== */
+p, li, label {
+    color: var(--text-light);
+    font-size: 16px;
+    line-height: 1.6;
+    letter-spacing: 0.5px;
+}
+
+/* ======================================================== */
+/* =================== BUTTONS =========================== */
+/* ======================================================== */
+button {
+    margin-top: 20px;
+    padding: 16px 32px;
+    border-radius: 14px;
+    border: none;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    background: linear-gradient(145deg, var(--button-gradient-start), var(--button-gradient-end));
+    box-shadow: 6px 6px 20px rgba(0,0,0,0.7),
+                -6px -6px 20px rgba(255,255,255,0.1);
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 15px #00BFFF55, 0 0 25px #C0C0C055, 6px 6px 20px rgba(0,0,0,0.7), -6px -6px 20px rgba(255,255,255,0.1);
+}
+
+button.neon {
+    box-shadow: 0 0 8px #00BFFF44, 0 0 18px #C0C0C022, 6px 6px 20px rgba(0,0,0,0.7), -6px -6px 20px rgba(255,255,255,0.1);
+}
+
+button.neon:hover {
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 0 15px #00BFFF55, 0 0 28px #C0C0C033, 6px 6px 20px rgba(0,0,0,0.7), -6px -6px 20px rgba(255,255,255,0.1);
+}
+
+/* ======================================================== */
+/* =================== INPUT FIELDS ====================== */
+/* ======================================================== */
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 16px 18px;
+    margin-bottom: 20px;
+    border-radius: 14px;
+    border: none;
+    background: rgba(255,255,255,0.06);
+    color: #fff;
+    font-size: 16px;
+    box-shadow: inset 4px 4px 12px rgba(0,0,0,0.7),
+                inset -4px -4px 12px rgba(255,255,255,0.08);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    transition: all 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    box-shadow: inset 6px 6px 16px rgba(0,0,0,0.8),
+                inset -6px -6px 16px rgba(255,255,255,0.15);
+    outline: none;
+}
+
+input[type="checkbox"] {
+    width: auto;
+    margin-right: 8px;
+    accent-color: var(--button-gradient-start);
+    cursor: pointer;
+}
+
+/* ======================================================== */
+/* =================== SPINNER & PROGRESS ================ */
+/* ======================================================== */
+.spinner {
+    border: 6px solid rgba(255,255,255,0.2);
+    border-top: 6px solid var(--glow-light-blue);
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    margin: 30px auto;
+    animation: spin 1s linear infinite, glow 1.5s ease-in-out infinite alternate;
+}
+
+.progress-wrap {
+    width: 100%;
+    background: rgba(255,255,255,0.08);
+    border-radius: 20px;
+    overflow: hidden;
+    margin-top: 25px;
+}
+
+.progress-bar {
+    height: 24px;
+    width: 0;
+    text-align: center;
+    line-height: 24px;
+    border-radius: 20px;
+    color: #fff;
+    font-weight: 700;
+    background: linear-gradient(90deg, var(--glow-light-blue), var(--glow-light-gray));
+    transition: width 0.3s ease;
+}
+
+/* ======================================================== */
+/* =================== ANIMATIONS ======================== */
+/* ======================================================== */
+@keyframes fadeIn {
+    0% { opacity: 0; transform: translateY(20px);}
+    100% { opacity: 1; transform: translateY(0);}
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg);}
+    100% { transform: rotate(360deg);}
+}
+
+@keyframes glow {
+    0% { box-shadow: 0 0 5px var(--glow-light-blue); }
+    100% { box-shadow: 0 0 20px var(--glow-light-blue), 0 0 30px var(--glow-light-gray); }
+}
+
+/* ======================================================== */
+/* =================== MEDIA QUERIES ==================== */
+/* ======================================================== */
+@media (max-width: 480px) {
+    .glass-container {
+        padding: 30px;
+        border-radius: 15px;
+    }
+
+    h1, h2 {
+        font-size: 28px;
+    }
+
+    button {
+        width: 100%;
+        padding: 14px 0;
+    }
+
+    input[type="text"], input[type="password"] {
+        padding: 14px 16px;
+    }
+}

