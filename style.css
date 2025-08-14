@@ -23,13 +23,27 @@ html, body {
     width: 100%;
     height: 100%;
     font-family: 'Tajawal', sans-serif;
-    /* الخلفية الثابتة الجديدة */
-    background: radial-gradient(circle at top left, var(--main-bg-dark), var(--main-bg-dark) 60%, var(--second-bg-dark) 100%);
+
+    /* خلفية متدرجة مع تأثير منعكس وحركة */
+    background: linear-gradient(135deg, rgba(31, 20, 34, 1) 0%, rgba(10, 5, 14, 1) 100%),
+                radial-gradient(circle at 20% 20%, rgba(138, 43, 226, 0.35) 0%, transparent 60%),
+                radial-gradient(circle at 80% 80%, rgba(255, 105, 180, 0.35) 0%, transparent 60%);
+    background-blend-mode: overlay;
+    background-size: 200% 200%;
+    animation: backgroundMove 15s ease-in-out infinite;
+
     display: flex;
     justify-content: center;
     align-items: center;
     overflow-x: hidden;
     color: var(--text-light);
+}
+
+/* حركة الخلفية */
+@keyframes backgroundMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 /* ======================================================== */
